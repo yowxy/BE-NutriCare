@@ -1,59 +1,475 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 API Documentation - NutriCare Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🌐 Base URL
+```
+http://localhost:8000/api
+```
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+##  **Table of Contents**
+1. [Badges API](#badges-api)
+2. [User Badges API](#user-badges-api)
+3. [Challenges API](#challenges-api)
+4. [User Challenges API](#user-challenges-api)
+5. [Food Logs API](#food-logs-api)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+##  **BADGES API**
 
-## Learning Laravel
+### 1. Get All Badges
+**Endpoint:** `GET /badges`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**Example:**
+```
+GET http://localhost:8000/api/badges
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "First Steps",
+            "description": "Complete your first challenge",
+            "icon": "icon-badge-1.png",
+            "created_at": "2025-12-04 19:56:20",
+            "updated_at": "2025-12-04 19:56:20"
+        }
+    ],
+    "message": "Badges fetched successfully",
+    "code": 200
+}
+```
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Get Badge by ID
+**Endpoint:** `GET /badges/{id}`
 
-### Premium Partners
+**Example:**
+```
+GET http://localhost:8000/api/badges/1
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "name": "First Steps",
+        "description": "Complete your first challenge",
+        "icon": "icon-badge-1.png"
+    },
+    "message": "Badge fetched successfully",
+    "code": 200
+}
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##  **USER BADGES API**
 
-## Code of Conduct
+### Get User Badges
+**Endpoint:** `GET /user-badges?user_id={id}`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Query Parameters:**
+- `user_id` (required): User ID
 
-## Security Vulnerabilities
+**Example:**
+```
+GET http://localhost:8000/api/user-badges?user_id=1
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "badge_id": 1,
+            "earned_at": "2025-12-05 03:00:00",
+            "badge": {
+                "id": 1,
+                "name": "First Steps",
+                "description": "Complete your first challenge",
+                "icon": "icon-badge-1.png"
+            }
+        }
+    ],
+    "message": "User badges fetched successfully",
+    "code": 200
+}
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##  **CHALLENGES API**
+
+### 1. Get All Challenges
+**Endpoint:** `GET /challenges`
+
+**Example:**
+```
+GET http://localhost:8000/api/challenges
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "title": "30 Days Healthy Eating",
+            "description": "Eat healthy for 30 days straight",
+            "points": 100,
+            "duration_days": 30,
+            "created_at": "2025-12-04 19:56:20",
+            "updated_at": "2025-12-04 19:56:20"
+        }
+    ],
+    "message": "Challenges fetched successfully",
+    "code": 200
+}
+```
+
+---
+
+### 2. Get Challenge by ID
+**Endpoint:** `GET /challenges/{id}`
+
+**Example:**
+```
+GET http://localhost:8000/api/challenges/1
+```
+
+---
+
+### 3. Create New Challenge
+**Endpoint:** `POST /challenges`
+
+**Request Body:**
+```json
+{
+    "title": "30 Days Healthy Eating",
+    "description": "Eat healthy for 30 days straight",
+    "points": 100,
+    "duration_days": 30
+}
+```
+
+**Response (201):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "title": "30 Days Healthy Eating",
+        "description": "Eat healthy for 30 days straight",
+        "points": 100,
+        "duration_days": 30
+    },
+    "message": "Challenge created successfully",
+    "code": 201
+}
+```
+
+---
+
+## **USER CHALLENGES API**
+
+### 1. Get User Challenges
+**Endpoint:** `GET /user-challenges`
+
+**Query Parameters:**
+- `user_id` (optional): Filter by user
+- `status` (optional): Filter by status (active, completed, failed)
+
+**Examples:**
+```
+GET http://localhost:8000/api/user-challenges?user_id=1
+GET http://localhost:8000/api/user-challenges?status=active
+GET http://localhost:8000/api/user-challenges?user_id=1&status=active
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "challenge_id": 1,
+            "status": "active",
+            "progress": 50,
+            "started_at": "2025-12-01 10:00:00",
+            "completed_at": null,
+            "challenge": {
+                "id": 1,
+                "title": "30 Days Healthy Eating",
+                "description": "Eat healthy for 30 days straight",
+                "points": 100,
+                "duration_days": 30
+            }
+        }
+    ],
+    "message": "User challenges fetched successfully",
+    "code": 200
+}
+```
+
+---
+
+### 2. Get User Challenge by ID
+**Endpoint:** `GET /user-challenges/{id}`
+
+**Example:**
+```
+GET http://localhost:8000/api/user-challenges/1
+```
+
+---
+
+### 3. Join a Challenge (Create User Challenge)
+**Endpoint:** `POST /user-challenges`
+
+**Request Body:**
+```json
+{
+    "user_id": 1,
+    "challenge_id": 1,
+    "status": "active",
+    "progress": 0
+}
+```
+
+**Response (201):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "user_id": 1,
+        "challenge_id": 1,
+        "status": "active",
+        "progress": 0,
+        "started_at": "2025-12-05 10:00:00"
+    },
+    "message": "User challenge created successfully",
+    "code": 201
+}
+```
+
+---
+
+### 4. Update User Challenge Progress
+**Endpoint:** `PUT /user-challenges/{id}`
+
+**Request Body:**
+```json
+{
+    "status": "completed",
+    "progress": 100
+}
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "user_id": 1,
+        "challenge_id": 1,
+        "status": "completed",
+        "progress": 100,
+        "started_at": "2025-12-01 10:00:00",
+        "completed_at": "2025-12-05 10:00:00"
+    },
+    "message": "User challenge updated successfully",
+    "code": 200
+}
+```
+
+---
+
+## **FOOD LOGS API**
+
+### 1. Get Food Logs
+**Endpoint:** `GET /food-logs`
+
+**Query Parameters:**
+- `user_id` (optional): Filter by user
+- `start_date` (optional): Filter from date (YYYY-MM-DD)
+- `end_date` (optional): Filter to date (YYYY-MM-DD)
+
+**Examples:**
+```
+GET http://localhost:8000/api/food-logs?user_id=1
+GET http://localhost:8000/api/food-logs?start_date=2025-12-01&end_date=2025-12-05
+GET http://localhost:8000/api/food-logs?user_id=1&start_date=2025-12-01
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "food_name": "Nasi Goreng",
+            "calories": 400,
+            "protein": 15.5,
+            "carbs": 60.2,
+            "fat": 10.5,
+            "sugar": 5.0,
+            "sodium": 800,
+            "vit_c": 10,
+            "vit_a": 500,
+            "potassium": 300,
+            "created_at": "2025-12-05 08:00:00",
+            "updated_at": "2025-12-05 08:00:00"
+        }
+    ],
+    "message": "Food logs fetched successfully",
+    "code": 200
+}
+```
+
+---
+
+### 2. Get Food Log by ID
+**Endpoint:** `GET /food-logs/{id}`
+
+**Example:**
+```
+GET http://localhost:8000/api/food-logs/1
+```
+
+---
+
+### 3. Create Food Log
+**Endpoint:** `POST /food-logs`
+
+**Request Body:**
+```json
+{
+    "user_id": 1,
+    "food_name": "Nasi Goreng",
+    "calories": 400,
+    "protein": 15.5,
+    "carbs": 60.2,
+    "fat": 10.5,
+    "sugar": 5.0,
+    "sodium": 800,
+    "vit_c": 10,
+    "vit_a": 500,
+    "potassium": 300
+}
+```
+
+**Response (201):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "user_id": 1,
+        "food_name": "Nasi Goreng",
+        "calories": 400,
+        ...
+    },
+    "message": "Food log created successfully",
+    "code": 201
+}
+```
+
+---
+
+### 4. Update Food Log
+**Endpoint:** `PUT /food-logs/{id}`
+
+**Request Body:**
+```json
+{
+    "food_name": "Nasi Goreng Spesial",
+    "calories": 450
+}
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "food_name": "Nasi Goreng Spesial",
+        "calories": 450,
+        ...
+    },
+    "message": "Food log updated successfully",
+    "code": 200
+}
+```
+
+---
+
+### 5. Delete Food Log
+**Endpoint:** `DELETE /food-logs/{id}`
+
+**Example:**
+```
+DELETE http://localhost:8000/api/food-logs/1
+```
+
+**Response (200):**
+```json
+{
+    "status": "success",
+    "data": null,
+    "message": "Food log deleted successfully",
+    "code": 200
+}
+```
+
+---
+
+## 📊 **COMPLETE API ROUTES SUMMARY**
+
+### Badges
+- `GET /badges` - Get all badges
+- `GET /badges/{id}` - Get badge by ID
+
+### User Badges
+- `GET /user-badges?user_id={id}` - Get user's badges
+
+### Challenges
+- `GET /challenges` - Get all challenges
+- `GET /challenges/{id}` - Get challenge by ID
+- `POST /challenges` - Create new challenge
+
+### User Challenges
+- `GET /user-challenges` - Get user challenges (with filters)
+- `GET /user-challenges/{id}` - Get user challenge by ID
+- `POST /user-challenges` - Join a challenge
+- `PUT /user-challenges/{id}` - Update progress
+
+### Food Logs
+- `GET /food-logs` - Get food logs (with filters)
+- `GET /food-logs/{id}` - Get food log by ID
+- `POST /food-logs` - Create food log
+- `PUT /food-logs/{id}` - Update food log
+- `DELETE /food-logs/{id}` - Delete food log
+
+---
+
+
