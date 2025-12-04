@@ -1,7 +1,8 @@
 <?php
- namespace App\Helpers;
 
-class ResponseFromatter
+namespace App\Helpers;
+
+class ResponseFormatter
 {
     public static function success($data, $message = null, $code = 200)
     {
@@ -10,7 +11,7 @@ class ResponseFromatter
             'data' => $data,
             'message' => $message,
             'code' => $code
-        ]);
+        ], $code);
     }
 
     public static function error($message = 'error', $code = 500)
@@ -19,6 +20,6 @@ class ResponseFromatter
             'status' => 'error',
             'message' => $message,
             'code' => $code
-        ],$code);
+        ], $code);
     }
 }
